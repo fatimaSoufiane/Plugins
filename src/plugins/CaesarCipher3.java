@@ -8,13 +8,11 @@ public class CaesarCipher3 implements Plugin {
 			'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 			't', 'u', 'v', 'w' };
 
-	@Override
 	public String getLabel() {
 		return "Caesar Cipher (-3)";
 	}
 
-	@Override
-	public String transformString(String input){
+	public String transform(String input){
 		char[] tab = input.toCharArray();
 		for (int i = 0; i < tab.length; ++i)
 			if (Character.isLetter(tab[i]))
@@ -22,7 +20,6 @@ public class CaesarCipher3 implements Plugin {
 		return new String(tab);
 	}
 
-	@Override
 	public String helpMessage() {
 		return "Replace each letter with a left shift of 3.";
 	}

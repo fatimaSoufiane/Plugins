@@ -1,9 +1,6 @@
-package plugins;
+package modele;
 
-public interface PLugin {
-	public String transforms(String s);
-	public String getLebel();
-	
-	
-
+public interface Plugin {
+	public String transform(String s);
+	public String getLabel();
 }
