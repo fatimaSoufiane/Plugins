@@ -7,7 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.Timer;
-
+/**
+ * This class search if there is changes in the plugins directory and informs observer of this changes
+ *
+ */
 public class PluginFinder {
 	protected static final int refresh_Interval_ms = 1000;
 	protected Set<File> knownPlugins = new HashSet<File>();

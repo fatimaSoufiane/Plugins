@@ -1,5 +1,7 @@
 package modele;
-
+/**
+ * an instance of this class is call when a change in a list of plugin is observed
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

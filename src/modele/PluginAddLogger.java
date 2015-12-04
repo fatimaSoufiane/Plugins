@@ -2,7 +2,10 @@ package modele;
 
 import java.io.File;
 import java.util.Set;
-
+/**
+ * this class just displays the list of plugin at each change
+ *
+ */
 public class PluginAddLogger implements PluginObserver {
 
 	@Override

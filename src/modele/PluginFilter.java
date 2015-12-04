@@ -1,6 +1,9 @@
 package modele;
 
 import java.io.File;
+/**
+ * this class represent the constraints format on the file that are plugins
+ */
 import java.io.FilenameFilter;
 import java.lang.reflect.Constructor;
 
