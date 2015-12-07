@@ -185,15 +185,17 @@ public class CustomFrame extends JFrame implements PluginObserver {
 	
 	@Override
 	public void update(Set<File> plugins) {
+		jmTools.removeAll();
+		pluginlist.clear();
 		for (File file : plugins) {
 			try {
 				final Plugin p;
 				String classname = file.getName().replaceFirst("\\.class$", "");
 				p = (Plugin) Class.forName("plugins." + classname).newInstance();
-
 				JMenuItem jmi = new JMenuItem(p.getLabel());
-				jmi.setToolTipText(p.helpMessage());
+				jmi.setToolTipText(p.helpMessage());			
 				pluginlist.put(p.getLabel(), p);
+				
 				jmTools.add(jmi);
 				jmi.addActionListener(new ActionListener() {
 					@Override
