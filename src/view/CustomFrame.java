@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -20,12 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
-import modele.Plugin;
-import modele.PluginAddedEvent;
-import modele.PluginEventListener;
-import modele.PluginFinder;
+import modele.*;
 
-public class CustomFrame extends JFrame {
+public class CustomFrame extends JFrame implements PluginObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -147,18 +146,7 @@ public class CustomFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-		// PluginFinder launching //
-		File f = new File("bin/plugins/");
-		PluginFinder pf = new PluginFinder(f);
-		PluginEventListener l = new PluginEventListener() {
-			@Override
-			public void pluginAdded(PluginAddedEvent e) {
-				addPluginInList(e.getFile());
-			}
-		};
-		pf.addListener(l);
-		pf.start();
-
+		
 	}
 
 	/**
@@ -193,6 +181,42 @@ public class CustomFrame extends JFrame {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void update(Set<File> plugins) {
+		for (File file : plugins) {
+			try {
+				final Plugin p;
+				String classname = file.getName().replaceFirst("\\.class$", "");
+				p = (Plugin) Class.forName("plugins." + classname).newInstance();
+
+				JMenuItem jmi = new JMenuItem(p.getLabel());
+				jmi.setToolTipText(p.helpMessage());
+				pluginlist.put(p.getLabel(), p);
+				jmTools.add(jmi);
+				jmi.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						textArea.updateTextArea(p);
+					}
+				});
+
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	public static void main(String[] args) throws IOException{
+		PluginFinder pluginFinder = new PluginFinder(new File("dropins"), new PluginFilter());
+		pluginFinder.addObserver(new CustomFrame());
+		pluginFinder.startToFindPlugins();		
 	}
 
 }

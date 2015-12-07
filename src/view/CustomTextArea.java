@@ -18,7 +18,7 @@ public class CustomTextArea extends JTextArea {
 
 	public void updateTextArea(Plugin p) {
 		previousText = getText();
-		setText(p.transformString(previousText));
+		setText(p.transform(previousText));
 	}
 
 	public void setRandomText() {
