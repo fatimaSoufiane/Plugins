@@ -26,7 +26,7 @@ import modele.*;
 
 public class CustomFrame  implements PluginObserver {
 
-	protected JFrame f;
+	protected JFrame jFrame;
 
 	protected JMenu jmTools;
 	protected Map<String, Plugin> pluginlist;
@@ -34,9 +34,9 @@ public class CustomFrame  implements PluginObserver {
 	CustomTextArea textArea;
 
 	public CustomFrame() {
-		f = new JFrame("Extendable Editor");
+		jFrame = new JFrame("Extendable Editor");
+		
 
-		// TOOLBAR
 		JMenuBar jmBar = new JMenuBar();
 
 		JMenu jmFile = new JMenu("File");
@@ -46,7 +46,7 @@ public class CustomFrame  implements PluginObserver {
 		jmiExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				f.dispose();
+				jFrame.dispose();
 			}
 		});
 		jmFile.add(jmiExit);
@@ -73,7 +73,7 @@ public class CustomFrame  implements PluginObserver {
 					fla.add(lab);
 					fla.add(new JLabel("   " + pluginlist.get(j).helpMessage()));
 				}
-				JOptionPane.showMessageDialog(f, fla);
+				JOptionPane.showMessageDialog(jFrame, fla);
 			}
 		});
 		jmHelp.add(jmihelp);
@@ -92,7 +92,7 @@ public class CustomFrame  implements PluginObserver {
 						"\n" +
 						"Sponsored by :\n" +
 						"    Nintendo-Pokemon";
-				JOptionPane.showMessageDialog(f, abu);
+				JOptionPane.showMessageDialog(jFrame, abu);
 			}
 		});
 		jmHelp.add(jmiabout);
@@ -104,7 +104,7 @@ public class CustomFrame  implements PluginObserver {
 		jmBar.add(jmTools);
 
 		jmBar.add(jmHelp);
-		f.setJMenuBar(jmBar);
+		jFrame.setJMenuBar(jmBar);
 
 		// /////////////////////
 		ImageIcon picture = new ImageIcon("");
@@ -135,15 +135,14 @@ public class CustomFrame  implements PluginObserver {
 		jp.add(scrollPane);
 		jp.add(example);
 		jp.add(reset);
-		f.add(jp);
+		jFrame.add(jp);
 
 		// Main Frame configuration //
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(new Dimension(300, 350));
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setSize(new Dimension(300, 350));
+		jFrame.setLocationRelativeTo(null);
+		jFrame.setVisible(true);
 
-		
 	}
 
 	/**

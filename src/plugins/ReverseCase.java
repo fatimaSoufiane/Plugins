@@ -5,11 +5,13 @@ import modele.Plugin;
 public class ReverseCase implements Plugin {
 
 
+	@Override
 	public String getLabel() {
 		return "Reverse Case";
 	}
 
 
+	@Override
 	public String transform(String input) {
 		char[] output = input.toCharArray();
 		for (int i = 0; i < output.length; i++) {
@@ -24,6 +26,7 @@ public class ReverseCase implements Plugin {
 	}
 
 
+	@Override
 	public String helpMessage() {
 		return "Reverse capital and normal letters";
 	}
