@@ -24,20 +24,17 @@ import javax.swing.KeyStroke;
 
 import modele.*;
 
-public class CustomFrame extends JFrame implements PluginObserver {
+public class CustomFrame  implements PluginObserver {
 
-	private static final long serialVersionUID = 1L;
+	protected JFrame f;
 
-	public static JFrame f;
-
-	private JMenu jmTools;
-	private Map<String, Plugin> pluginlist;
+	protected JMenu jmTools;
+	protected Map<String, Plugin> pluginlist;
 
 	CustomTextArea textArea;
 
 	public CustomFrame() {
-		super("Extendable Editor");
-		f = this;
+		f = new JFrame("Extendable Editor");
 
 		// TOOLBAR
 		JMenuBar jmBar = new JMenuBar();
@@ -107,7 +104,7 @@ public class CustomFrame extends JFrame implements PluginObserver {
 		jmBar.add(jmTools);
 
 		jmBar.add(jmHelp);
-		setJMenuBar(jmBar);
+		f.setJMenuBar(jmBar);
 
 		// /////////////////////
 		ImageIcon picture = new ImageIcon("");
@@ -141,47 +138,20 @@ public class CustomFrame extends JFrame implements PluginObserver {
 		f.add(jp);
 
 		// Main Frame configuration //
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(new Dimension(300, 350));
-		setLocationRelativeTo(null);
-		setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(new Dimension(300, 350));
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
 
 		
 	}
 
 	/**
-	 * Add the given plugin (file) to the plugin list.
+	 * update the given plugins (file) to the plugin list.
 	 * 
-	 * @param f
-	 *            file which is a plugin
+	 * @param plugins
+	 *            list of file which are plugins
 	 */
-	public void addPluginInList(File f) {
-
-		final Plugin p;
-		try {
-
-			String classname = f.getName().replaceFirst("\\.class$", "");
-			p = (Plugin) Class.forName("plugins." + classname).newInstance();
-
-			JMenuItem jmi = new JMenuItem(p.getLabel());
-			jmi.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					textArea.updateTextArea(p);
-				}
-			});
-			jmi.setToolTipText(p.helpMessage());
-			pluginlist.put(p.getLabel(), p);
-			jmTools.add(jmi);
-
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	@Override
 	public void update(Set<File> plugins) {
