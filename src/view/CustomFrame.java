@@ -27,21 +27,43 @@ import modele.*;
 public class CustomFrame  implements PluginObserver {
 
 	protected JFrame jFrame;
-
+	protected JMenuBar jMenuBar;
 	protected JMenu jmTools;
+	protected JPanel jPanel = new JPanel();
 	protected Map<String, Plugin> pluginlist;
-
-	CustomTextArea textArea;
+	protected CustomTextArea textArea;
+	protected ImageIcon picture;
 
 	public CustomFrame() {
+		pluginlist = new HashMap<String, Plugin>();	
 		jFrame = new JFrame("Extendable Editor");
+		jMenuBar = new JMenuBar();
+		jFrame.setJMenuBar(jMenuBar);
+		textArea = new CustomTextArea();
+		picture = new ImageIcon("");
 		
+		addJmenuFile();
+		
+		jmTools = new JMenu("Tools");
+		jMenuBar.add(jmTools);
+		
+		addJmenuHelp();
+		
+		addJPanel();
 
-		JMenuBar jmBar = new JMenuBar();
+		// Main Frame configuration //
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setSize(new Dimension(300, 350));
+		jFrame.setLocationRelativeTo(null);
+		jFrame.setVisible(true);
 
+	}
+	
+	
+	protected void addJmenuFile(){
 		JMenu jmFile = new JMenu("File");
 		JMenuItem jmiExit = new JMenuItem("Exit");
-		jmiExit.setAccelerator(KeyStroke.getKeyStroke('Q', jmBar.getToolkit()
+		jmiExit.setAccelerator(KeyStroke.getKeyStroke('Q', jMenuBar.getToolkit()
 				.getMenuShortcutKeyMask(), false));
 		jmiExit.addActionListener(new ActionListener() {
 			@Override
@@ -51,7 +73,7 @@ public class CustomFrame  implements PluginObserver {
 		});
 		jmFile.add(jmiExit);
 		JMenuItem jmiUndo = new JMenuItem("Undo");
-		jmiUndo.setAccelerator(KeyStroke.getKeyStroke('Z', jmBar.getToolkit()
+		jmiUndo.setAccelerator(KeyStroke.getKeyStroke('Z', jMenuBar.getToolkit()
 				.getMenuShortcutKeyMask(), false));
 		jmiUndo.addActionListener(new ActionListener() {
 			@Override
@@ -60,6 +82,10 @@ public class CustomFrame  implements PluginObserver {
 			}
 		});
 		jmFile.add(jmiUndo);
+		jMenuBar.add(jmFile);
+	}
+	
+	protected void addJmenuHelp(){
 		JMenu jmHelp = new JMenu("Help");
 		JMenuItem jmihelp = new JMenuItem("About plugins");
 
@@ -96,21 +122,11 @@ public class CustomFrame  implements PluginObserver {
 			}
 		});
 		jmHelp.add(jmiabout);
-
-		jmTools = new JMenu("Tools");
-		pluginlist = new HashMap<String, Plugin>();
-
-		jmBar.add(jmFile);
-		jmBar.add(jmTools);
-
-		jmBar.add(jmHelp);
-		jFrame.setJMenuBar(jmBar);
-
-		// /////////////////////
-		ImageIcon picture = new ImageIcon("");
-		JLabel lab = new JLabel(picture);
-		JPanel jp = new JPanel();
-		textArea = new CustomTextArea();
+		jMenuBar.add(jmHelp);
+	}
+	
+	protected void addJPanel(){
+		JLabel lab = new JLabel(picture);	
 		JScrollPane scrollPane = new JScrollPane(textArea);
 
 		JButton example = new JButton("Example");
@@ -131,27 +147,20 @@ public class CustomFrame  implements PluginObserver {
 			}
 		});
 
-		jp.add(lab);
-		jp.add(scrollPane);
-		jp.add(example);
-		jp.add(reset);
-		jFrame.add(jp);
-
-		// Main Frame configuration //
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jFrame.setSize(new Dimension(300, 350));
-		jFrame.setLocationRelativeTo(null);
-		jFrame.setVisible(true);
-
+		jPanel.add(lab);
+		jPanel.add(scrollPane);
+		jPanel.add(example);
+		jPanel.add(reset);
+		jFrame.add(jPanel);
 	}
+	
 
 	/**
 	 * update the given plugins (file) to the plugin list.
 	 * 
 	 * @param plugins
 	 *            list of file which are plugins
-	 */
-	
+	 */	
 	@Override
 	public void update(Set<File> plugins) {
 		jmTools.removeAll();
