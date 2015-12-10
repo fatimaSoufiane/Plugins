@@ -2,7 +2,7 @@ package plugins;
 
 import modele.Plugin;
 
-public class PluginRespectsConstraintMooc implements Plugin {
+public class PluginRespectsConstraintMook implements Plugin {
 
 	@Override
 	public String transform(String s) {
