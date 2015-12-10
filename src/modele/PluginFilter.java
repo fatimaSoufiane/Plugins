@@ -7,14 +7,22 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.lang.reflect.Constructor;
 
+/**
+ * A simple FilenameFilter, searching for .class, in a specified folder.
+ */
 public class PluginFilter implements FilenameFilter {
+
+	/**
+	 * Method accept() is expecting to find .class in the directory specified at
+	 * instantiation.
+	 */
 
 	@Override
 	public boolean accept(File dir, String name) {
 		if (!fileExtensionIsClass(name)) {
 			return false;
 		}
-		Class<?> theClass = getClass(dir, name);
+		Class<?> theClass = getClass(name);
 		if (theClass == null) {
 			return false;
 		}
@@ -25,7 +33,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check if the file's extension is a .class
 	 * 
-	 * @param filename with extension included
+	 * @param filename
+	 *            with extension included
 	 * @return true if correct extension
 	 */
 	protected boolean fileExtensionIsClass(String filename) {
@@ -35,11 +44,13 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Returns the class by its path and name
 	 * 
-	 * @param dir directory examined
-	 * @param filename file name
+	 * @param dir
+	 *            directory examined
+	 * @param filename
+	 *            file name
 	 * @return class
 	 */
-	protected Class<?> getClass(File dir, String filename) {
+	protected Class<?> getClass(String filename) {
 		String classname = filename.replaceFirst("\\.class$", "");
 		try {
 			return Class.forName("plugins." + classname);
@@ -51,7 +62,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check if given class is inherited from the interface "Plugin"
 	 * 
-	 * @param theClass to test
+	 * @param theClass
+	 *            to test
 	 * @return true is it inherits from Plugin
 	 */
 	protected boolean inheritFromPlugin(Class<?> theClass) {
@@ -61,7 +73,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check the package of the class
 	 * 
-	 * @param theClass to test
+	 * @param theClass
+	 *            to test
 	 * @return true if in package "plugins"
 	 */
 	protected boolean classInPluginsPackage(Class<?> theClass) {
@@ -71,7 +84,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check if the class can be instancied without parameter
 	 * 
-	 * @param theClass to test
+	 * @param theClass
+	 *            to test
 	 * @return true if has a parameterless constructor
 	 */
 	protected boolean classHasParameterlessConstructor(Class<?> theClass) {
