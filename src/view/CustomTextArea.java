@@ -1,7 +1,11 @@
 package view;
 /**
  * This class contains the text area, where the input is made
+ * 
+ * 
+ * 
  * */
+
 import javax.swing.JTextArea;
 
 import modele.Plugin;
