@@ -32,19 +32,19 @@ import modele.*;
 
 public class CustomFrame  implements PluginObserver {
 
-	protected JFrame jFrame;
+	public JFrame jFrame;
 	protected JMenuBar jMenuBar;
 	protected JMenu jmTools;
 	protected JPanel jPanel = new JPanel();
 	protected Map<String, Plugin> pluginlist;
-	protected CustomTextArea textArea;
+	public CustomTextArea textArea;
 	protected ImageIcon picture;
 	protected boolean saved;
 	protected static final String VERSION = "eXditor 1.0";
 	protected final File dropins = new File("./dropins/plugins");
 	protected FilenameFilter filter;
 	protected final PluginFinder finder = new PluginFinder(dropins,filter);
-	protected File file;
+	public File file;
 
 	public CustomFrame() {
 		pluginlist = new HashMap<String, Plugin>();	
@@ -52,7 +52,7 @@ public class CustomFrame  implements PluginObserver {
 		jMenuBar = new JMenuBar();
 		jFrame.setJMenuBar(jMenuBar);
 		textArea = new CustomTextArea();
-		picture = new ImageIcon("");
+		picture = new ImageIcon("java.gif");
 		
 		addJmenuFile();
 		
