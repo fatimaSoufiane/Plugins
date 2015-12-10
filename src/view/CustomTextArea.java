@@ -1,5 +1,7 @@
 package view;
-
+/**
+ * This class contains the text area, where the input is made
+ * */
 import javax.swing.JTextArea;
 
 import modele.Plugin;
@@ -14,7 +16,7 @@ public class CustomTextArea extends JTextArea {
 	public CustomTextArea() {
 		super(5, 20);
 		randomTexts = new String[] { "Hello World", "This a an example",
-				"abcdef" };
+				"abcdef","" };
 	}
 
 	public void updateTextArea(Plugin p) {

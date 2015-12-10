@@ -1,9 +1,15 @@
 package view;
-
+/** 
+ * This class is the main window of  editor.
+ * 
+ * */
 import java.awt.Dimension;
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +39,12 @@ public class CustomFrame  implements PluginObserver {
 	protected Map<String, Plugin> pluginlist;
 	protected CustomTextArea textArea;
 	protected ImageIcon picture;
+	protected boolean saved;
+	protected static final String VERSION = "eXditor 1.0";
+	protected final File dropins = new File("./dropins/plugins");
+	protected FilenameFilter filter;
+	protected final PluginFinder finder = new PluginFinder(dropins,filter);
+	protected File file;
 
 	public CustomFrame() {
 		pluginlist = new HashMap<String, Plugin>();	
@@ -50,6 +62,8 @@ public class CustomFrame  implements PluginObserver {
 		addJmenuHelp();
 		
 		addJPanel();
+		
+	
 
 		// Main Frame configuration //
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,6 +73,31 @@ public class CustomFrame  implements PluginObserver {
 
 	}
 	
+	/**
+	 * Updates the title of the window
+	 */
+	public void updateTitle() {
+		StringBuilder sb = new StringBuilder();
+		if (!this.saved)
+			sb.append('*');
+		if (this.file == null)
+			sb.append("untitled");
+		else
+			sb.append(this.file.getName());
+		sb.append(" | ");
+		sb.append(CustomFrame.VERSION);
+		this.jFrame.setTitle(sb.toString());
+	}
+	/**
+	 * Resets the editor to work on a new Document
+	 */
+	public void reset() {
+		this.textArea.setText(null);
+		this.file = null;
+		this.saved = true;
+		this.updateTitle();
+	}
+
 	
 	protected void addJmenuFile(){
 		JMenu jmFile = new JMenu("File");
@@ -114,10 +153,10 @@ public class CustomFrame  implements PluginObserver {
 						"\n" +
 						"Made by :\n" +
 						"    SOUFIANE \n" +
-						"    Oceane \n"+
-						"\n" +
+						"    LEGRAND\n"+
+						"   RAHCIDE\n" +
 						"Sponsored by :\n" +
-						"    Nintendo-Pokemon";
+						"    JavaProjet";
 				JOptionPane.showMessageDialog(jFrame, abu);
 			}
 		});
@@ -192,6 +231,8 @@ public class CustomFrame  implements PluginObserver {
 		}
 		
 	}
+	
+
 
 	public static void main(String[] args) throws IOException{
 		PluginFinder pluginFinder = new PluginFinder(new File("dropins"), new PluginFilter());
