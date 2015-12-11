@@ -19,7 +19,7 @@ public class PluginFinder {
 	protected FilenameFilter filter;
 	protected Timer timer;
 	public PluginFinder(File directory, FilenameFilter filter) {
-		new Timer(refresh_Interval_ms, new ActionListenerForPlugins(this));
+		timer = new Timer(refresh_Interval_ms, new ActionListenerForPlugins(this));
 		this.directory = directory;
 		this.filter = filter;
 	}
