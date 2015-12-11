@@ -13,15 +13,15 @@ public class PluginFilterTest {
 	@Before
 	public void setUp() throws Exception {
 		filter = new PluginFilter();
-		classRespectsContraint = Class.forName("plugins.PluginRespectsConstraintMooc");
-		classNotRespectsContraint = Class.forName("modele.PluginNotRespectsConstraintMooc");
+		classRespectsContraint = Class.forName("plugins.PluginRespectsConstraintMook");
+		classNotRespectsContraint = Class.forName("modele.PluginNotRespectsConstraintMook");
 	}
 
 
 	@Test
 	public void testAccept() {
-		assertTrue(filter.accept(null,"PluginRespectsConstraintMooc.class"));
-		assertFalse(filter.accept(null,"PluginNotRespectsConstraintMooc.class"));
+		assertTrue(filter.accept(null,"PluginRespectsConstraintMook.class"));
+		assertFalse(filter.accept(null,"PluginNotRespectsConstraintMook.class"));
 	}
 
 	@Test
@@ -32,7 +32,7 @@ public class PluginFilterTest {
 	
 	@Test
 	public void testGetClassFileString() {
-		assertNotNull(filter.getClass("PluginRespectsConstraintMooc.class"));
+		assertNotNull(filter.getClass("PluginRespectsConstraintMook.class"));
 		assertNull(filter.getClass("abcd"));
 	}
 

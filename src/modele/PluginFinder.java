@@ -17,8 +17,9 @@ public class PluginFinder {
 	protected Set<PluginObserver> observers = new HashSet<PluginObserver>();
 	protected final File directory;
 	protected FilenameFilter filter;
-	protected Timer timer =  new Timer(refresh_Interval_ms, new ActionListenerForPlugins(this));
+	protected Timer timer;
 	public PluginFinder(File directory, FilenameFilter filter) {
+		new Timer(refresh_Interval_ms, new ActionListenerForPlugins(this));
 		this.directory = directory;
 		this.filter = filter;
 	}
