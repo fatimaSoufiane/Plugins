@@ -1,15 +1,16 @@
 package plugins;
 
+/*
+ *This class  reverse capital and normal letters in textArea
+ */
 import modele.Plugin;
 
 public class ReverseCase implements Plugin {
-
 
 	@Override
 	public String getLabel() {
 		return "Reverse Case";
 	}
-
 
 	@Override
 	public String transform(String input) {
@@ -24,7 +25,6 @@ public class ReverseCase implements Plugin {
 		}
 		return new String(output);
 	}
-
 
 	@Override
 	public String helpMessage() {

@@ -33,8 +33,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check if the file's extension is a .class
 	 * 
-	 * @param filename
-	 *            with extension included
+	 * @param filename with extension included
+	 *            
 	 * @return true if correct extension
 	 */
 	protected boolean fileExtensionIsClass(String filename) {
@@ -44,10 +44,10 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Returns the class by its path and name
 	 * 
-	 * @param dir
-	 *            directory examined
-	 * @param filename
-	 *            file name
+	 * @param dir  directory examined
+	 *           
+	 * @param filename file name
+	 *            
 	 * @return class
 	 */
 	protected Class<?> getClass(String filename) {
@@ -62,8 +62,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check if given class is inherited from the interface "Plugin"
 	 * 
-	 * @param theClass
-	 *            to test
+	 * @param theClass to test
+	 *            
 	 * @return true is it inherits from Plugin
 	 */
 	protected boolean inheritFromPlugin(Class<?> theClass) {
@@ -73,8 +73,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check the package of the class
 	 * 
-	 * @param theClass
-	 *            to test
+	 * @param theClass to test
+	 *            
 	 * @return true if in package "plugins"
 	 */
 	protected boolean classInPluginsPackage(Class<?> theClass) {
@@ -84,8 +84,8 @@ public class PluginFilter implements FilenameFilter {
 	/**
 	 * Check if the class can be instancied without parameter
 	 * 
-	 * @param theClass
-	 *            to test
+	 * @param theClass to test
+	 *            
 	 * @return true if has a parameterless constructor
 	 */
 	protected boolean classHasParameterlessConstructor(Class<?> theClass) {

@@ -1,12 +1,13 @@
 package plugins;
-
+/*
+ *This class Replace each letter with a left shift of 3
+ */
 import modele.Plugin;
 
 public class CaesarCipher3 implements Plugin {
 
-	static char[] alphabet = { 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f',
-			'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-			't', 'u', 'v', 'w' };
+	static char[] alphabet = { 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+			'p', 'q', 'r', 's', 't', 'u', 'v', 'w' };
 
 	@Override
 	public String getLabel() {
@@ -14,7 +15,7 @@ public class CaesarCipher3 implements Plugin {
 	}
 
 	@Override
-	public String transform(String input){
+	public String transform(String input) {
 		char[] tab = input.toCharArray();
 		for (int i = 0; i < tab.length; ++i)
 			if (Character.isLetter(tab[i]))

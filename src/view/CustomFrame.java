@@ -1,10 +1,10 @@
 package view;
+
 /** 
  * This class is the main window of  editor.
  * 
  * */
 import java.awt.Dimension;
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +29,7 @@ import javax.swing.KeyStroke;
 
 import modele.*;
 
-public class CustomFrame  implements PluginObserver {
+public class CustomFrame implements PluginObserver {
 
 	protected JFrame jFrame;
 	protected JMenuBar jMenuBar;
@@ -40,23 +40,21 @@ public class CustomFrame  implements PluginObserver {
 	protected ImageIcon picture;
 
 	public CustomFrame() {
-		pluginlist = new HashMap<String, Plugin>();	
+		pluginlist = new HashMap<String, Plugin>();
 		jFrame = new JFrame("Extendable Editor");
 		jMenuBar = new JMenuBar();
 		jFrame.setJMenuBar(jMenuBar);
 		textArea = new CustomTextArea();
 		picture = new ImageIcon("java.gif");
-		
+
 		addJmenuFile();
-		
+
 		jmTools = new JMenu("Tools");
 		jMenuBar.add(jmTools);
-		
+
 		addJmenuHelp();
-		
+
 		addJPanel();
-		
-	
 
 		// Main Frame configuration //
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,12 +64,10 @@ public class CustomFrame  implements PluginObserver {
 
 	}
 
-	
-	protected void addJmenuFile(){
+	protected void addJmenuFile() {
 		JMenu jmFile = new JMenu("File");
 		JMenuItem jmiExit = new JMenuItem("Exit");
-		jmiExit.setAccelerator(KeyStroke.getKeyStroke('Q', jMenuBar.getToolkit()
-				.getMenuShortcutKeyMask(), false));
+		jmiExit.setAccelerator(KeyStroke.getKeyStroke('Q', jMenuBar.getToolkit().getMenuShortcutKeyMask(), false));
 		jmiExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -80,8 +76,7 @@ public class CustomFrame  implements PluginObserver {
 		});
 		jmFile.add(jmiExit);
 		JMenuItem jmiUndo = new JMenuItem("Undo");
-		jmiUndo.setAccelerator(KeyStroke.getKeyStroke('Z', jMenuBar.getToolkit()
-				.getMenuShortcutKeyMask(), false));
+		jmiUndo.setAccelerator(KeyStroke.getKeyStroke('Z', jMenuBar.getToolkit().getMenuShortcutKeyMask(), false));
 		jmiUndo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -91,8 +86,8 @@ public class CustomFrame  implements PluginObserver {
 		jmFile.add(jmiUndo);
 		jMenuBar.add(jmFile);
 	}
-	
-	protected void addJmenuHelp(){
+
+	protected void addJmenuHelp() {
 		JMenu jmHelp = new JMenu("Help");
 		JMenuItem jmihelp = new JMenuItem("About plugins");
 
@@ -110,30 +105,23 @@ public class CustomFrame  implements PluginObserver {
 			}
 		});
 		jmHelp.add(jmihelp);
-		
+
 		JMenuItem jmiabout = new JMenuItem("About us");
 
 		jmiabout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String abu = "The Extendable Edit\n" +
-						"Version 15.8.4\n" +
-						"\n" +
-						"Made by :\n" +
-						"    SOUFIANE \n" +
-						"    LEGRAND\n"+
-						"   RAHCIDE\n" +
-						"Sponsored by :\n" +
-						"    JavaProjet";
+				String abu = "The Extendable Edit\n" + "Version 15.8.4\n" + "\n" + "Made by :\n" + "    SOUFIANE \n"
+						+ "    LEGRAND\n" + "   RAHCIDE\n" + "Sponsored by :\n" + "    JavaProjet";
 				JOptionPane.showMessageDialog(jFrame, abu);
 			}
 		});
 		jmHelp.add(jmiabout);
 		jMenuBar.add(jmHelp);
 	}
-	
-	protected void addJPanel(){
-		JLabel lab = new JLabel(picture);	
+
+	protected void addJPanel() {
+		JLabel lab = new JLabel(picture);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 
 		JButton example = new JButton("Example");
@@ -160,14 +148,13 @@ public class CustomFrame  implements PluginObserver {
 		jPanel.add(reset);
 		jFrame.add(jPanel);
 	}
-	
 
 	/**
 	 * update the given plugins (file) to the plugin list.
 	 * 
 	 * @param plugins
 	 *            list of file which are plugins
-	 */	
+	 */
 	@Override
 	public void update(Set<File> plugins) {
 		jmTools.removeAll();
@@ -178,9 +165,9 @@ public class CustomFrame  implements PluginObserver {
 				String classname = file.getName().replaceFirst("\\.class$", "");
 				p = (Plugin) Class.forName("plugins." + classname).newInstance();
 				JMenuItem jmi = new JMenuItem(p.getLabel());
-				jmi.setToolTipText(p.helpMessage());			
+				jmi.setToolTipText(p.helpMessage());
 				pluginlist.put(p.getLabel(), p);
-				
+
 				jmTools.add(jmi);
 				jmi.addActionListener(new ActionListener() {
 					@Override
@@ -197,15 +184,13 @@ public class CustomFrame  implements PluginObserver {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
 
-
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		PluginFinder pluginFinder = new PluginFinder(new File("dropins"), new PluginFilter());
 		pluginFinder.addObserver(new CustomFrame());
-		pluginFinder.startToFindPlugins();		
+		pluginFinder.startToFindPlugins();
 	}
 
 }

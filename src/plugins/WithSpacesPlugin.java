@@ -1,15 +1,16 @@
 package plugins;
 
+/*
+ *This class add one space after each letter in text Area
+ */
 import modele.Plugin;
 
 public class WithSpacesPlugin implements Plugin {
-
 
 	@Override
 	public String getLabel() {
 		return "Add Spaces";
 	}
-
 
 	@Override
 	public String transform(String input) {

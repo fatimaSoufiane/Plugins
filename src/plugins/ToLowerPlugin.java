@@ -1,9 +1,11 @@
 package plugins;
 
+/*
+ * This class transform all capital letters to normal letters
+ */
 import modele.Plugin;
 
 public class ToLowerPlugin implements Plugin {
-
 
 	@Override
 	public String getLabel() {
@@ -15,7 +17,6 @@ public class ToLowerPlugin implements Plugin {
 		String output = input.toLowerCase();
 		return output;
 	}
-
 
 	@Override
 	public String helpMessage() {

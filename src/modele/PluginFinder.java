@@ -7,8 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.Timer;
+
 /**
- * This class search if there is changes in the plugins directory and informs observer of this changes
+ * This class search if there is changes in the plugins directory and informs
+ * observer of this changes
  *
  */
 public class PluginFinder {
@@ -18,41 +20,42 @@ public class PluginFinder {
 	protected final File directory;
 	protected FilenameFilter filter;
 	protected Timer timer;
+
 	public PluginFinder(File directory, FilenameFilter filter) {
 		timer = new Timer(refresh_Interval_ms, new ActionListenerForPlugins(this));
 		this.directory = directory;
 		this.filter = filter;
 	}
-	
+
 	protected Set<File> givePluginsInTheDirectory() {
 		Set<File> pluginsInTheDirectory = new HashSet<>();
 		pluginsInTheDirectory.addAll(Arrays.asList(directory.listFiles(filter)));
 		return pluginsInTheDirectory;
 	}
-	
-	protected Boolean theyAreNewsPlugins(){
+
+	protected Boolean theyAreNewsPlugins() {
 		Set<File> pluginsInTheDirectory = givePluginsInTheDirectory();
 		if (pluginsInTheDirectory.size() == knownPlugins.size())
 			return pluginsInTheDirectory.retainAll(knownPlugins);
-		else 
+		else
 			return true;
 	}
-	
-	public void notifyObservers(){
-		if (theyAreNewsPlugins()){
+
+	public void notifyObservers() {
+		if (theyAreNewsPlugins()) {
 			knownPlugins = givePluginsInTheDirectory();
-			for (PluginObserver observer : observers){
+			for (PluginObserver observer : observers) {
 				observer.update(knownPlugins);
 			}
 		}
 	}
-	
-	public void addObserver(PluginObserver observer){
+
+	public void addObserver(PluginObserver observer) {
 		observers.add(observer);
 	}
-	
-	public void startToFindPlugins(){
+
+	public void startToFindPlugins() {
 		timer.start();
 	}
-	
+
 }

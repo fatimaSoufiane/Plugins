@@ -1,6 +1,9 @@
 package plugins;
 
 import modele.Plugin;
+/*
+ * This class removes all spaces from text area
+ */
 
 public class RemoveSpacesPlugin implements Plugin {
 
