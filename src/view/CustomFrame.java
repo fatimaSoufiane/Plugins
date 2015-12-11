@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,19 +31,13 @@ import modele.*;
 
 public class CustomFrame  implements PluginObserver {
 
-	public JFrame jFrame;
+	protected JFrame jFrame;
 	protected JMenuBar jMenuBar;
 	protected JMenu jmTools;
 	protected JPanel jPanel = new JPanel();
 	protected Map<String, Plugin> pluginlist;
-	public CustomTextArea textArea;
+	protected CustomTextArea textArea;
 	protected ImageIcon picture;
-	protected boolean saved;
-	protected static final String VERSION = "eXditor 1.0";
-	protected final File dropins = new File("./dropins/plugins");
-	protected FilenameFilter filter;
-	protected final PluginFinder finder = new PluginFinder(dropins,filter);
-	public File file;
 
 	public CustomFrame() {
 		pluginlist = new HashMap<String, Plugin>();	
@@ -71,31 +64,6 @@ public class CustomFrame  implements PluginObserver {
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setVisible(true);
 
-	}
-	
-	/**
-	 * Updates the title of the window
-	 */
-	public void updateTitle() {
-		StringBuilder sb = new StringBuilder();
-		if (!this.saved)
-			sb.append('*');
-		if (this.file == null)
-			sb.append("untitled");
-		else
-			sb.append(this.file.getName());
-		sb.append(" | ");
-		sb.append(CustomFrame.VERSION);
-		this.jFrame.setTitle(sb.toString());
-	}
-	/**
-	 * Resets the editor to work on a new Document
-	 */
-	public void reset() {
-		this.textArea.setText(null);
-		this.file = null;
-		this.saved = true;
-		this.updateTitle();
 	}
 
 	
